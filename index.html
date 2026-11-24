@@ -527,11 +527,13 @@
       color: #fde047;
     }
 
-    .showcase-item .s-award {
-      font-weight: 700;
-      color: #cbd5e1;
-      line-height: 1.3;
-    }
+    .showcase-item .s-award { font-weight:700; color:#e2e8f0; line-height:1.3; }
+    .showcase-art { position:relative; min-height:82px; margin:-1px 0 7px; border-radius:11px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:radial-gradient(circle at 50% 45%,rgba(125,211,252,.28),transparent 48%),linear-gradient(145deg,#312e81,#111827 72%); border:1px solid rgba(125,211,252,.28); box-shadow:inset 0 0 22px rgba(56,189,248,.12); }
+    .showcase-art:before,.showcase-art:after { content:"✦"; position:absolute; color:#fde68a; font-size:15px; text-shadow:0 0 9px #facc15; }
+    .showcase-art:before { left:14%; top:13%; } .showcase-art:after { right:14%; bottom:12%; }
+    .showcase-art .s-icon { font-size:43px; line-height:1; filter:drop-shadow(0 0 10px rgba(250,204,21,.65)); animation:rewardBounce 1.2s ease-in-out infinite alternate; }
+    .showcase-item:not(.unlocked) .showcase-art { filter:saturate(.55); opacity:.65; }
+    .showcase-item.unlocked .showcase-art { background:radial-gradient(circle at 50% 45%,rgba(250,204,21,.32),transparent 52%),linear-gradient(145deg,#4c1d95,#172554 72%); border-color:rgba(253,224,71,.55); }
 
     #creator-signature {
       position: fixed;
@@ -546,6 +548,54 @@
       text-shadow: 0 2px 12px rgba(250, 204, 21, 0.45), 0 1px 3px rgba(0, 0, 0, 0.9);
       transform: rotate(-3deg);
     }
+
+    .crown-progress { color:#fde68a; border-color:rgba(250,204,21,.42); }
+    #reward-toast { position:absolute; z-index:15; bottom:calc(12% + 58px + env(safe-area-inset-bottom)); left:10px; right:auto; width:min(43%,170px); min-height:48px; padding:6px 8px; display:flex; align-items:center; gap:7px; text-align:left; border:1px solid rgba(253,224,71,.62); border-radius:14px; background:linear-gradient(115deg,rgba(39,31,75,.96),rgba(8,13,31,.94)); box-shadow:0 4px 18px rgba(250,204,21,.18); transform:translateY(10px) scale(.96); opacity:0; pointer-events:none; }
+    #reward-toast.show { animation: rewardChipIn 2.8s ease both; }
+    .reward-glow { position:absolute; inset:-4px; border-radius:18px; background:linear-gradient(90deg,transparent,rgba(253,224,71,.2),transparent); filter:blur(8px); opacity:.55; z-index:-1; }
+    .reward-art { flex:0 0 auto; font-size:31px; line-height:1; filter:drop-shadow(0 0 8px #fde047); animation:rewardBounce .48s ease-in-out 2 alternate; }
+    .reward-copy { min-width:0; display:flex; flex-direction:column; align-items:flex-start; }
+    .reward-title { color:#fde68a; font-weight:900; letter-spacing:.8px; font-size:9px; }
+    .reward-name { color:white; font-size:11px; line-height:1.2; font-weight:800; margin-top:3px; }
+    .crown-piece-note { color:#67e8f9; font-size:9px; font-weight:800; margin-top:3px; }
+    @keyframes rewardChipIn { 0%{opacity:0;transform:translateY(10px) scale(.94)} 12%{opacity:1;transform:translateY(0) scale(1)} 78%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(8px) scale(.96)} }
+    @keyframes rewardBounce { from{transform:translateY(0) rotate(-7deg) scale(1)} to{transform:translateY(-4px) rotate(7deg) scale(1.12)} }
+    @keyframes spinReward { to{transform:rotate(360deg)} }
+    #finale-gathering { position:absolute; inset:0; z-index:11; pointer-events:none; display:none; overflow:hidden; }
+    #finale-gathering.show { display:block; }
+    .finale-orbit { position:absolute; left:50%; top:48%; width:min(78vw,340px); height:min(78vw,340px); transform:translate(-50%,-50%); border:1px dashed rgba(253,224,71,.45); border-radius:50%; animation:orbitSpin 18s linear infinite; }
+    .finale-orbit span { position:absolute; left:50%; top:-20px; transform:translateX(-50%); font-size:27px; filter:drop-shadow(0 0 9px #fde047); animation:orbitBob 1s ease-in-out infinite alternate; }
+    @keyframes orbitSpin { to{transform:translate(-50%,-50%) rotate(360deg)} }
+    @keyframes orbitBob { to{transform:translateX(-50%) scale(1.25) rotate(15deg)} }
+    .showcase-item { cursor:pointer; transition:transform .22s ease, box-shadow .22s ease; }
+    .showcase-item:active { transform:scale(.94); }
+    .showcase-item.reward-card-pop { animation:cardRewardPop .55s ease; }
+    @keyframes cardRewardPop { 50%{transform:scale(1.07);filter:brightness(1.5)} }
+    .showcase-item.unlocked { box-shadow:inset 0 0 18px rgba(250,204,21,.13),0 0 12px rgba(56,189,248,.12); }
+    .showcase-item.unlocked .s-award { text-shadow:0 0 12px rgba(250,204,21,.65); }
+
+
+    .extra-modal{position:absolute;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(2,6,23,.88);backdrop-filter:blur(10px)}
+    .extra-modal.open{display:flex}
+    .extra-panel{width:min(100%,390px);max-height:88%;overflow:auto;padding:22px;border:1px solid rgba(103,232,249,.45);border-radius:25px;background:linear-gradient(150deg,#172554,#090d20 72%);box-shadow:0 0 35px #0ea5e955;text-align:left}
+    .extra-panel h2{text-align:center;color:#fde68a;margin:0 0 12px;font-size:23px}
+    .extra-panel p,.extra-panel li{font-size:13px;line-height:1.65;color:#dbeafe}
+    .extra-panel ul{padding-left:20px}
+    .extra-panel .btn-row{margin-top:16px}
+    .settings-line{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid #ffffff20;color:#e0f2fe;font-size:14px}
+    .settings-line input{width:21px;height:21px;accent-color:#38bdf8}
+    #continueBtn:disabled{opacity:.4;filter:grayscale(1)}
+    #finale-gathering{background:radial-gradient(circle,rgba(30,41,89,.35),rgba(2,6,23,.55))}
+    .finale-center{position:absolute;left:50%;top:70%;transform:translate(-50%,-50%);font-size:0;filter:drop-shadow(0 0 24px #fde047);animation:finaleBall .7s ease-in-out infinite alternate}
+    .finale-center small{display:block;text-align:center;font-size:13px;color:#fde68a;font-weight:900;letter-spacing:2px}
+    @keyframes finaleBall{to{transform:translate(-50%,-50%) scale(1.13) rotate(8deg)}}
+    .finale-orbit span{font-size:clamp(17px,4vw,28px)}
+    .finale-full{width:min(94vw,430px);height:min(94vw,430px);border:0}
+    .finale-full span{position:absolute;left:50%;top:50%;transform:rotate(var(--a)) translateY(calc(-1 * min(43vw,195px))) rotate(calc(-1 * var(--a)));animation:partyDance .7s ease-in-out infinite alternate;animation-delay:var(--d);filter:drop-shadow(0 0 9px #fde047)}
+    @keyframes partyDance{to{margin-top:-12px;scale:1.3;filter:drop-shadow(0 0 15px #fff)}}
+    #game-message{position:absolute;z-index:9;left:50%;bottom:12%;transform:translateX(-50%);width:max-content;max-width:86%;padding:11px 16px;border:1px solid #67e8f9aa;border-radius:18px;background:#07152bea;color:#fff;text-align:center;font-size:13px;font-weight:800;box-shadow:0 0 20px #38bdf855;opacity:0;pointer-events:none;transition:opacity .25s}
+    #game-message.show{opacity:1}
+
   </style>
 </head>
 <body>
@@ -555,7 +605,8 @@
     <div id="hud">
       <div class="hud-group">
         <div class="hud-pill" id="levelHud">Πίστα 1/100</div>
-        <div class="hud-pill" id="scoreHud">Σκορ: 0 / 3</div>
+        <div class="hud-pill" id="scoreHud">Σκορ: 0 / 5</div>
+        <div class="hud-pill crown-progress" id="crownProgressHud">👑 0/100</div>
       </div>
       <div class="hud-group">
         <div class="hud-pill" id="bestHud">Ρεκόρ: 0</div>
@@ -581,6 +632,17 @@
     </div>
 
     <div id="next-gift-bar">🎁 Στην Πίστα 5 σε περιμένει: 🌟 Αστέρι Νόβα</div>
+
+    <div id="reward-toast" aria-live="polite">
+      <div class="reward-glow"></div>
+      <div class="reward-art" id="reward-art">🏆</div>
+      <div class="reward-copy">
+        <div class="reward-title">ΒΡΑΒΕΙΟ ΠΙΣΤΑΣ!</div>
+        <div class="reward-name" id="reward-name">Κέρδισες ένα βραβείο</div>
+        <div class="crown-piece-note" id="crown-piece-note">👑 Κομμάτι στέμματος +1</div>
+      </div>
+    </div>
+    <div id="finale-gathering" aria-hidden="true"></div>
 
     <div id="pause-overlay">
       <h2>⏸️ Παύση</h2>
@@ -611,10 +673,43 @@
       <div id="awards-preview"></div>
       <div class="btn-row">
         <button id="startBtn" class="primary">Παίξε Τώρα</button>
+        <button id="continueBtn" class="secondary">▶ Συνέχεια από εκεί που έμεινα</button>
+        <button id="restartBtn" class="secondary">↻ Νέο παιχνίδι από την Πίστα 1</button>
+        <button id="tutorialBtn" class="secondary">❔ Εκμάθηση – Πώς παίζεται</button>
+        <button id="settingsBtn" class="secondary">⚙️ Ρυθμίσεις</button>
         <button id="showcaseBtn" class="secondary">🏆 Βιτρίνα Βραβείων (0/100)</button>
         <button id="installBtn" class="secondary" style="display:none;">📲 Εγκατάσταση στο Κινητό</button>
       </div>
       <div id="install-hint"></div>
+    </div>
+
+
+    <div id="game-message" aria-live="polite"></div>
+    <div id="tutorialModal" class="extra-modal">
+      <div class="extra-panel">
+        <h2>🚀 Πώς παίζεται το Neon Orbit 100</h2>
+        <p><b>Στόχος:</b> Οδήγησε τη χαμογελαστή μπάλα μέσα από τις 100 πίστες, μάζεψε τα φωτεινά μπόνους και απόφυγε τα κάθετα εμπόδια.</p>
+        <ul>
+          <li><b>Άγγιξε και κράτησε</b> την οθόνη για να ανέβει η μπάλα.</li>
+          <li><b>Άφησε</b> την οθόνη για να κατέβει ομαλά.</li>
+          <li>Πέρασε από το άνοιγμα ανάμεσα στις κάθετες μπάρες.</li>
+          <li>Μάζευε αστέρια και μπόνους για πόντους, ασπίδα και μαγνήτη.</li>
+          <li>Κάθε πίστα δίνει ένα βραβείο και ένα κομμάτι από το στέμμα. Στην 100ή πίστα ολοκληρώνεις το στέμμα!</li>
+        </ul>
+        <p>Πάτησε ⏸️ για παύση. Από το μενού μπορείς να συνεχίσεις την πρόοδό σου ή να αρχίσεις από την αρχή.</p>
+        <div class="btn-row"><button class="primary" id="closeTutorialBtn">Το κατάλαβα!</button></div>
+      </div>
+    </div>
+    <div id="settingsModal" class="extra-modal">
+      <div class="extra-panel">
+        <h2>⚙️ Ρυθμίσεις παιχνιδιού</h2>
+        <label class="settings-line"><span>🎵 Μουσική</span><input type="checkbox" id="settingMusic"></label>
+        <label class="settings-line"><span>🔊 Ηχητικά εφέ</span><input type="checkbox" id="settingSound"></label>
+        <label class="settings-line"><span>📳 Δόνηση</span><input type="checkbox" id="settingVibe"></label>
+        <label class="settings-line"><span>🧸 Παιδική λειτουργία</span><input type="checkbox" id="settingKids"></label>
+        <p>Οι επιλογές μουσικής και ήχων αποθηκεύονται στη συσκευή σου.</p>
+        <div class="btn-row"><button class="primary" id="closeSettingsBtn">Έτοιμο</button></div>
+      </div>
     </div>
 
     <div id="showcase-modal">
@@ -692,6 +787,18 @@
       ictx.arc(256, 256, 116, 0, Math.PI * 2);
       ictx.fill();
 
+      // Το ίδιο χαμογελαστό πρόσωπο της μπάλας του παιχνιδιού
+      ictx.fillStyle = "#082033";
+      ictx.beginPath();
+      ictx.arc(222, 239, 10, 0, Math.PI * 2);
+      ictx.arc(286, 239, 10, 0, Math.PI * 2);
+      ictx.fill();
+      ictx.strokeStyle = "#082033";
+      ictx.lineWidth = 8;
+      ictx.lineCap = "round";
+      ictx.beginPath();
+      ictx.arc(254, 245, 43, 0.15 * Math.PI, 0.85 * Math.PI);
+      ictx.stroke();
       ictx.fillStyle = "#fde047";
       ictx.beginPath();
       ictx.arc(412, 188, 20, 0, Math.PI * 2);
@@ -773,9 +880,9 @@
 
     // --- 2. ΗΧΟΙ, ΧΑΡΟΥΜΕΝΗ ΜΟΥΣΙΚΗ & ΔΟΝΗΣΗ ---
     let audioCtx = null;
-    let soundEnabled = true;
-    let musicEnabled = true;
-    let vibeEnabled = true;
+    let soundEnabled = localStorage.getItem("orbit100_sound") !== "false";
+    let musicEnabled = localStorage.getItem("orbit100_music") !== "false";
+    let vibeEnabled = localStorage.getItem("orbit100_vibe") !== "false";
     let musicTimer = null;
     let musicStep = 0;
 
@@ -815,6 +922,7 @@
     soundBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       soundEnabled = !soundEnabled;
+      localStorage.setItem("orbit100_sound", String(soundEnabled));
       soundBtn.classList.toggle("muted", !soundEnabled);
       soundBtn.textContent = soundEnabled ? "🔊" : "🔇";
       if (soundEnabled) {
@@ -826,6 +934,7 @@
     musicBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       musicEnabled = !musicEnabled;
+      localStorage.setItem("orbit100_music", String(musicEnabled));
       musicBtn.classList.toggle("muted", !musicEnabled);
       if (musicEnabled && gameRunning && !paused) {
         startHappyMusic();
@@ -837,6 +946,7 @@
     vibeBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       vibeEnabled = !vibeEnabled;
+      localStorage.setItem("orbit100_vibe", String(vibeEnabled));
       vibeBtn.classList.toggle("muted", !vibeEnabled);
       if (vibeEnabled) vibrateDevice(25);
     });
@@ -870,6 +980,12 @@
       587.33, 783.99, 987.77, 783.99,
       659.25, 783.99, 659.25, 523.25
     ];
+
+    musicBtn.textContent = musicEnabled ? "🎵" : "🔇";
+    soundBtn.textContent = soundEnabled ? "🔊" : "🔇";
+    vibeBtn.classList.toggle("muted", !vibeEnabled);
+    musicBtn.classList.toggle("muted", !musicEnabled);
+    soundBtn.classList.toggle("muted", !soundEnabled);
 
     function startHappyMusic() {
       stopHappyMusic();
@@ -1012,7 +1128,7 @@
 
       for (let i = 0; i < TOTAL_LEVELS; i++) {
         const num = i + 1;
-        const pointsNeededForLevel = 3 + Math.min(5, Math.floor(i / 20));
+        const pointsNeededForLevel = 16 + Math.min(12, Math.floor(i / 8));
         cumulativeTarget += pointsNeededForLevel;
 
         let name;
@@ -1122,6 +1238,11 @@
     const awardsSummaryEl = document.getElementById("awards-summary");
     const awardsPreviewEl = document.getElementById("awards-preview");
     const startBtn = document.getElementById("startBtn");
+    const continueBtn = document.getElementById("continueBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const tutorialModal = document.getElementById("tutorialModal");
+    const settingsModal = document.getElementById("settingsModal");
+    const gameMessage = document.getElementById("game-message");
 
     const showcaseBtn = document.getElementById("showcaseBtn");
     const showcaseModal = document.getElementById("showcase-modal");
@@ -1156,7 +1277,7 @@
 
     bestHud.textContent = `Ρεκόρ: ${bestScore}`;
 
-    let currentLevelIndex = 0;
+    let currentLevelIndex = Math.max(0, Math.min(TOTAL_LEVELS - 1, Number(localStorage.getItem("orbit100_checkpoint") || 0)));
     let sessionAwards = [];
     let bannerTimeout = null;
 
@@ -1179,6 +1300,55 @@
     let bgStars = [];
     let spawnTimer = 0;
     let fireworkTimer = 0;
+
+    const rewardToast = document.getElementById("reward-toast");
+    const rewardArt = document.getElementById("reward-art");
+    const rewardName = document.getElementById("reward-name");
+    const crownPieceNote = document.getElementById("crown-piece-note");
+    const crownProgressHud = document.getElementById("crownProgressHud");
+    const finaleGathering = document.getElementById("finale-gathering");
+    let rewardToastTimer = 0;
+    function updateCrownProgress() {
+      if (crownProgressHud) crownProgressHud.textContent = `👑 ${Math.min(100, collectedAwards.length)}/100`;
+    }
+    function playAwardSignature(lvlNum) {
+      // Κάθε βραβείο έχει μικρή διαφορετική μουσική υπογραφή.
+      const base = 440 + (lvlNum % 12) * 24;
+      const pattern = lvlNum % 5;
+      const notes = pattern === 0 ? [base, base*1.25, base*1.5, base*2] :
+                    pattern === 1 ? [base*1.5, base, base*1.8] :
+                    pattern === 2 ? [base, base*1.33, base*1.78] :
+                    pattern === 3 ? [base*2, base*1.5, base*1.25] : [base, base*1.5, base*2.25];
+      notes.forEach((f, i) => playTone(f, 0.16, pattern === 4 ? "sine" : "triangle", 0.13, i * 0.085));
+      vibrateDevice(22 + (lvlNum % 4) * 8);
+    }
+
+    function showLevelReward(lvlNum, awardText) {
+      if (!rewardToast) return;
+      const icon = (awardText.match(/^\S+/) || ["🏆"])[0];
+      rewardArt.textContent = icon;
+      rewardName.textContent = awardText.replace(/^\S+\s*/, "");
+      crownPieceNote.textContent = `👑 Κομμάτι στέμματος ${Math.min(100,lvlNum)}/100`;
+      rewardToast.classList.remove("show");
+      void rewardToast.offsetWidth;
+      rewardToast.classList.add("show");
+      clearTimeout(rewardToastTimer);
+      rewardToastTimer = setTimeout(() => rewardToast.classList.remove("show"), 2300);
+      try { playAwardSignature(lvlNum); } catch(e) {}
+      try { spawnExplosion(player.x, player.y, "#fde047", 16); } catch(e) {}
+    }
+    function showFinaleCollection() {
+      if (!finaleGathering) return;
+      const party = LEVELS.map((lvl, i) => {
+        const icon = (lvl.award.match(/^\S+/) || ["🏆"])[0];
+        const angle = (i / TOTAL_LEVELS) * 360;
+        const delay = (i % 20) * 0.035;
+        return `<span style="--a:${angle}deg;--d:${delay}s">${icon}</span>`;
+      }).join("");
+      finaleGathering.innerHTML = `<div class="finale-orbit finale-full">${party}</div><div class="finale-center"><small>ΟΛΟΙ ΜΑΖΙ ΣΤΗ ΓΙΟΡΤΗ!</small></div>`;
+      finaleGathering.classList.add("show");
+      setTimeout(()=>finaleGathering.classList.remove("show"),12000);
+    }
 
     function getNextMilestoneGiftText(fromLvlNum) {
       const milestones = [5, 10, 25, 50, 75, 100];
@@ -1212,10 +1382,12 @@
         localStorage.setItem("orbit100_collected_awards", JSON.stringify(collectedAwards));
       }
       updateAwardsUI();
+      showLevelReward(lvlNum, awardText);
     }
 
     function updateAwardsUI() {
       const totalCollected = collectedAwards.length;
+      updateCrownProgress();
       showcaseBtn.textContent = `🏆 Βιτρίνα Βραβείων (${totalCollected}/100)`;
       awardsSummaryEl.textContent = totalCollected > 0
         ? `Συλλογή Βραβείων: ${totalCollected} / ${TOTAL_LEVELS}`
@@ -1245,10 +1417,26 @@
         const isMilestone = lvl.num === 100 || lvl.num % 25 === 0 || lvl.num % 10 === 0 || lvl.num % 5 === 0;
         const card = document.createElement("div");
         card.className = `showcase-item ${isUnlocked ? "unlocked" : ""} ${isMilestone ? "milestone" : ""}`;
+        const awardIcon = (lvl.award.match(/^\S+/) || ["🎁"])[0];
+        const awardLabel = lvl.award.replace(/^\S+\s*/, "");
         card.innerHTML = `
+          <div class="showcase-art" aria-hidden="true"><span class="s-icon">${isUnlocked ? awardIcon : "🔒"}</span></div>
           <div class="s-lvl">Πίστα ${lvl.num} • ${lvl.name}</div>
-          <div class="s-award">${isUnlocked ? lvl.award : `🎁 Δώρο: ${lvl.award}`}</div>
+          <div class="s-award">${isUnlocked ? awardLabel : `🎁 Κλειδωμένο δώρο`}</div>
+          ${isUnlocked ? `<div class="s-play-hint" style="color:#67e8f9;font-size:9px;margin-top:4px;font-weight:800">▶ Πάτησέ με για ήχο!</div>` : ""}
         `;
+        card.addEventListener("click", () => {
+          card.classList.remove("reward-card-pop");
+          void card.offsetWidth;
+          card.classList.add("reward-card-pop");
+          if (isUnlocked) {
+            const iconNode = card.querySelector(".s-icon");
+            if (iconNode) { iconNode.textContent = awardIcon; iconNode.animate([{transform:"scale(1) rotate(0deg)"},{transform:"scale(1.35) rotate(12deg)"},{transform:"scale(1) rotate(0deg)"}],{duration:650,easing:"ease-out"}); }
+            const hint = card.querySelector(".s-play-hint");
+            if (hint) { hint.textContent = "✨ Το δώρο σου!"; setTimeout(()=>{ if(hint.isConnected) hint.textContent="▶ Πάτησέ με για ήχο!"; },1100); }
+            try { playAwardSignature(lvl.num); } catch(e) {}
+          }
+        });
         showcaseGrid.appendChild(card);
       }
 
@@ -1291,6 +1479,7 @@
       streak = 0;
       localStorage.removeItem("orbit100_collected_awards");
       localStorage.setItem("orbit100_unlocked", "1");
+      localStorage.setItem("orbit100_checkpoint", "0");
       populateLevelSelect();
       updateGiftHints();
       renderShowcaseGrid();
@@ -1310,9 +1499,32 @@
         startLevelSelect.appendChild(opt);
       }
       startLevelSelect.value = String(Math.min(unlockedLevel - 1, LEVELS.length - 1));
+      if (continueBtn) {
+        const saved = Math.max(0, Math.min(TOTAL_LEVELS - 1, Number(localStorage.getItem("orbit100_checkpoint") || 0)));
+        continueBtn.disabled = !(saved > 0 || unlockedLevel > 1);
+        continueBtn.textContent = `▶ Συνέχεια από Πίστα ${Math.max(saved + 1, 1)}`;
+      }
       updateAwardsUI();
     }
     populateLevelSelect();
+    const settingMusic = document.getElementById("settingMusic");
+    const settingSound = document.getElementById("settingSound");
+    const settingVibe = document.getElementById("settingVibe");
+    const settingKids = document.getElementById("settingKids");
+    document.getElementById("tutorialBtn").addEventListener("click", () => tutorialModal.classList.add("open"));
+    document.getElementById("closeTutorialBtn").addEventListener("click", () => tutorialModal.classList.remove("open"));
+    document.getElementById("settingsBtn").addEventListener("click", () => {
+      settingMusic.checked = musicEnabled; settingSound.checked = soundEnabled; settingVibe.checked = vibeEnabled; settingKids.checked = kidsMode || kidsModeToggle.checked;
+      settingsModal.classList.add("open");
+    });
+    document.getElementById("closeSettingsBtn").addEventListener("click", () => settingsModal.classList.remove("open"));
+    settingMusic.addEventListener("change", () => { musicEnabled=settingMusic.checked; localStorage.setItem("orbit100_music",String(musicEnabled)); musicBtn.textContent=musicEnabled?"🎵":"🔇"; musicBtn.classList.toggle("muted",!musicEnabled); if(musicEnabled&&gameRunning&&!paused)startHappyMusic();else stopHappyMusic(); });
+    settingSound.addEventListener("change", () => { soundEnabled=settingSound.checked; localStorage.setItem("orbit100_sound",String(soundEnabled)); soundBtn.textContent=soundEnabled?"🔊":"🔇"; soundBtn.classList.toggle("muted",!soundEnabled); });
+    settingVibe.addEventListener("change", () => { vibeEnabled=settingVibe.checked; localStorage.setItem("orbit100_vibe",String(vibeEnabled)); vibeBtn.classList.toggle("muted",!vibeEnabled); });
+    settingKids.addEventListener("change", () => { kidsMode=settingKids.checked; kidsModeToggle.checked=kidsMode; });
+    continueBtn.addEventListener("click", () => { const saved=Math.max(0,Math.min(unlockedLevel-1,Number(localStorage.getItem("orbit100_checkpoint")||0))); startLevelSelect.value=String(saved); startGame(); });
+    restartBtn.addEventListener("click", () => { startLevelSelect.value="0"; startGame(); });
+    function showGameMessage(message, duration=2600) { if(!gameMessage)return; gameMessage.textContent=message; gameMessage.classList.add("show"); clearTimeout(showGameMessage.timer); showGameMessage.timer=setTimeout(()=>gameMessage.classList.remove("show"),duration); }
 
     kidsModeToggle.addEventListener("change", () => {
       kidsMode = kidsModeToggle.checked;
@@ -1395,6 +1607,7 @@
 
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
+    if (typeof updateCrownProgress === "function") updateCrownProgress();
 
     function showBanner(title, sub, quote) {
       bannerTitle.textContent = title;
@@ -1412,10 +1625,12 @@
       levelHud.textContent = `Πίστα ${lvl.num}/100`;
       scoreHud.textContent = `Σκορ: ${score} / ${lvl.targetScore}`;
       bestHud.textContent = `Ρεκόρ: ${bestScore}`;
+      updateCrownProgress();
     }
 
     function resetGame(selectedIdx = 0) {
       currentLevelIndex = Math.max(0, Math.min(LEVELS.length - 1, selectedIdx));
+      localStorage.setItem("orbit100_checkpoint", String(currentLevelIndex));
       score = currentLevelIndex > 0 ? LEVELS[currentLevelIndex - 1].targetScore : 0;
       streak = 0;
       sessionAwards = [];
@@ -1453,6 +1668,7 @@
         `Δώρο πίστας: ${lvl.award}`,
         lvl.quote
       );
+      showGameMessage("Άγγιξε και κράτησε για να ανέβεις • Άφησε για να κατέβεις", 3600);
       lastTime = performance.now();
       cancelAnimationFrame(animationId);
       animationId = requestAnimationFrame(loop);
@@ -1492,6 +1708,7 @@
       pauseOverlay.classList.remove("open");
 
       const finalLvl = LEVELS[LEVELS.length - 1];
+      localStorage.setItem("orbit100_checkpoint", "0");
       recordAward(finalLvl.num, finalLvl.award);
       unlockedLevel = LEVELS.length;
       localStorage.setItem("orbit100_unlocked", String(unlockedLevel));
@@ -1504,9 +1721,15 @@
       }
       updateHud();
       playVictorySound();
+      player.x = width * 0.5;
+      player.y = height * 0.52;
+      player.vy = 0;
+      player.trail = [];
+      showFinaleCollection();
 
       trophyDisplay.textContent = "👑";
       trophyDisplay.classList.add("grand");
+      startLevelSelect.value = "0";
       titleEl.style.color = "#fde047";
       titleEl.textContent = "Συγχαρητήρια! Τερμάτισες και τις 100 Πίστες!";
       subtitleEl.textContent = `Κατέκτησες και τις 100 πίστες με σκορ ${score} πόντους και κέρδισες το Μεγάλο Στέμμα!`;
@@ -1570,6 +1793,7 @@
 
         if (currentLevelIndex < LEVELS.length - 1) {
           currentLevelIndex += 1;
+          localStorage.setItem("orbit100_checkpoint", String(currentLevelIndex));
           if (currentLevelIndex + 1 > unlockedLevel) {
             unlockedLevel = currentLevelIndex + 1;
             localStorage.setItem("orbit100_unlocked", String(unlockedLevel));
@@ -1660,6 +1884,8 @@
     });
 
     startBtn.addEventListener("click", startGame);
+    window.addEventListener("beforeunload", () => { if (gameRunning || paused) localStorage.setItem("orbit100_checkpoint", String(currentLevelIndex)); });
+    document.addEventListener("visibilitychange", () => { if (document.hidden && (gameRunning || paused)) localStorage.setItem("orbit100_checkpoint", String(currentLevelIndex)); });
 
     let lastTime = performance.now();
 
@@ -1741,7 +1967,7 @@
       spawnTimer -= dt;
       if (spawnTimer <= 0) {
         spawnObstacle();
-        spawnTimer = (2.05 - Math.min(0.45, currentLevelIndex * 0.005)) * (kidsMode ? 1.2 : 1);
+        spawnTimer = (2.45 - Math.min(0.28, currentLevelIndex * 0.0025)) * (kidsMode ? 1.2 : 1);
       }
 
       const hitRadius = player.radius * (kidsMode ? 0.58 : 0.66);
@@ -2070,6 +2296,24 @@
       }
 
       drawBallFace(player.x, player.y, player.radius);
+      if (victoryMode) {
+        ctx.save();
+        ctx.translate(player.x, player.y - player.radius - 8);
+        ctx.shadowColor = "#fde047"; ctx.shadowBlur = 18;
+        ctx.fillStyle = "#facc15"; ctx.strokeStyle = "#fff2a8"; ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-player.radius * 0.82, 2);
+        ctx.lineTo(-player.radius * 0.68, -player.radius * 0.75);
+        ctx.lineTo(-player.radius * 0.2, -player.radius * 0.32);
+        ctx.lineTo(0, -player.radius * 1.05);
+        ctx.lineTo(player.radius * 0.2, -player.radius * 0.32);
+        ctx.lineTo(player.radius * 0.68, -player.radius * 0.75);
+        ctx.lineTo(player.radius * 0.82, 2);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = "#fff7cc";
+        for (const x of [-player.radius*.68,0,player.radius*.68]) { ctx.beginPath(); ctx.arc(x,-player.radius*.76,2.3,0,Math.PI*2); ctx.fill(); }
+        ctx.restore();
+      }
       ctx.restore();
 
       for (const p of particles) {
@@ -2084,3 +2328,4 @@
   </script>
 </body>
 </html>
+```
